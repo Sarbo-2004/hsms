@@ -34,6 +34,16 @@ def product_list():
     for i1 in y:
       print(i1[0]," "*(4-len(str(i1[0]))),"|",i1[1]," "*(24-len(str(i1[1]))),"|",i1[2]," "*(4-len(str(i1[2]))),"|",i1[3])
       print("-------------------------------------------------------------")
+    print()
+    print("You will get rewards points according to your shopping bill as follows")
+    print("For shopping of Rs 50-100:-10")
+    print("For shopping of Rs 100-150:-50")
+    print("For shopping of Rs 150-200:-60")
+    print("For shopping of Rs 200-250:-70")
+    print("For shopping of Rs 250-300:-80")
+    print("For shopping of Rs 300-350:-90")
+    print("For shopping of Rs 350-400:-100")
+
     order()
 
 def searchp(n,m):
@@ -115,9 +125,6 @@ def login():
         else:
             print(result , ph1)
             print("phone number incorrect!!")
-      
-    #print("login successfull")
-    #mainp()
 
 
 def order():
@@ -156,6 +163,23 @@ def order():
   for z in c:
     ts=ts+z[2]
   print(f"TOTAL BILL:-{ts} Rs")
+  reward=0
+  if ts>=50 and ts<100:
+      print("YOUR REWARDS:-",10)
+  elif ts>=100 and ts<150:
+      print("YOUR REWARDS:-",50)
+  elif ts>=150 and ts<200:
+      print("YOUR REWARDS:-",60)
+  elif ts>=200 and ts<250:
+      print("YOUR REWARDS:-",70)
+  elif ts>=250 and ts<300:
+      print("YOUR REWARDS:-",80)
+  elif ts>=300 and ts<350:
+      print("YOUR REWARDS:-",90)
+  elif ts>=350 and ts<400:
+      print("YOUR REWARDS:-",100)
+      
+    
   print("")
   print("Type y to confirm order or c to cancel")
   if input().lower()=='y':
