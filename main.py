@@ -131,6 +131,8 @@ def order():
   b=[]
   c=[]
   ts=0
+  product_nam=()
+  quantit=()
   st=""
   for j in range (int(input("Enter the number of products you want to order:-"))):
     s=0
@@ -199,7 +201,7 @@ def order():
     print("Do you want to order again?")
     a=input().lower()
     if a=="yes" or a=="y":
-      print(name)
+      print()
       product_list()
     elif a=="no" or a=="n":
       print()
