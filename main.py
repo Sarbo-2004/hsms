@@ -35,7 +35,9 @@ def product_list():
       print(i1[0]," "*(4-len(str(i1[0]))),"|",i1[1]," "*(24-len(str(i1[1]))),"|",i1[2]," "*(4-len(str(i1[2]))),"|",i1[3])
       print("-------------------------------------------------------------")
     print()
-    print("You will get rewards points according to your shopping bill as follows")
+    
+    print("You will get rewards points according to your shopping bill as follows:-")
+    print()
     print("For shopping of Rs 50-100:-10")
     print("For shopping of Rs 100-150:-50")
     print("For shopping of Rs 150-200:-60")
@@ -97,7 +99,7 @@ def sign():
       add=input("enter address:")
       table1=f"CREATE TABLE {name}.items (sl INT AUTO_INCREMENT , product_name VARCHAR(20) , quantity INT(10) , total_price INT(10) , PRIMARY KEY(sl))"
       mycursor.execute(table1)
-      table=f"CREATE TABLE {name}.details (phone_number VARCHAR(10) , address VARCHAR(50))"
+      table=f"CREATE TABLE {name}.details (phone_number VARCHAR(10) , address VARCHAR(50), rewards(100))"
       mycursor.execute(table)
         
       p=f"INSERT INTO {name}.details (phone_number , address) VALUES (%s , %s)"
