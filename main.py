@@ -45,6 +45,14 @@ def product_list():
     print("For shopping of Rs 250-300:-80")
     print("For shopping of Rs 300-350:-90")
     print("For shopping of Rs 350-400:-100")
+    print()
+    sql2=f"SELECT rewards FROM {name}.details"
+    mycursor.execute(sql2)
+    mydb.commit()
+    results1 = mycursor.fetchall()
+    for v in results1:
+      for u in v:
+        print("YOUR CURRENT REWARDS:-",u)
 
     order()
 
@@ -97,13 +105,14 @@ def sign():
       mycursor.execute(f"CREATE DATABASE {name}")
       ph=int(input("enter phone number:-"))
       add=input("enter address:")
+      r=0
       table1=f"CREATE TABLE {name}.items (sl INT AUTO_INCREMENT , product_name VARCHAR(20) , quantity INT(10) , total_price INT(10) , PRIMARY KEY(sl))"
       mycursor.execute(table1)
-      table=f"CREATE TABLE {name}.details (phone_number VARCHAR(10) , address VARCHAR(50), rewards(100))"
+      table=f"CREATE TABLE {name}.details (phone_number VARCHAR(10) , address VARCHAR(50) , rewards INT(10))"
       mycursor.execute(table)
         
-      p=f"INSERT INTO {name}.details (phone_number , address) VALUES (%s , %s)"
-      val=(ph , add )
+      p=f"INSERT INTO {name}.details (phone_number , address , rewards) VALUES (%s , %s , %s)"
+      val=(ph , add , r )
       mycursor.execute(p , val)
       mydb.commit()
       print("****ACCOUNT CREATED SUCCESSFULLY****")
@@ -125,7 +134,6 @@ def login():
             print("****LOGIN SUCCESSFUL****")
             product_list()
         else:
-            print(result , ph1)
             print("phone number incorrect!!")
 
 
