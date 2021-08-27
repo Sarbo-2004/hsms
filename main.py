@@ -92,7 +92,7 @@ def update(g):
       r=mycursor.fetchall()
       for l in r:
           t=(sum(l))
-      sql1="UPDATE products SET quantity=%s WHERE product_name=%s"
+      sql1="c"
       val1=((t-int(j[1])) , j[0])
       mycursor.execute(sql1 , val1)
       mydb.commit()
@@ -120,6 +120,7 @@ def sign():
     except:
       print("Account has already been created with this name. Please login!")
       login()
+      
 def login():
     global name 
     name=input("enter registered name:")
@@ -135,6 +136,7 @@ def login():
             product_list()
         else:
             print("phone number incorrect!!")
+            login()
 
 
 def order():
@@ -144,7 +146,11 @@ def order():
   product_nam=()
   quantit=()
   st=""
-  for j in range (int(input("Enter the number of products you want to order:-"))):
+  try:
+    np=int(input("Enter the number of products you want to order:-"))
+  except:
+    np=(int(input("Please enter the number of products:-")))
+  for j in range (np):
     s=0
     prod=input("enter product:-")
     product_nam=(prod,)
@@ -175,22 +181,48 @@ def order():
   for z in c:
     ts=ts+z[2]
   print(f"TOTAL BILL:-{ts} Rs")
+  print()
   reward=0
   if ts>=50 and ts<100:
-      print("YOUR REWARDS:-",10)
+      reward=10
   elif ts>=100 and ts<150:
-      print("YOUR REWARDS:-",50)
+      reward=20
   elif ts>=150 and ts<200:
-      print("YOUR REWARDS:-",60)
+      reward=30
   elif ts>=200 and ts<250:
-      print("YOUR REWARDS:-",70)
+      reward=40
   elif ts>=250 and ts<300:
-      print("YOUR REWARDS:-",80)
+      reward=60
   elif ts>=300 and ts<350:
-      print("YOUR REWARDS:-",90)
+      reward=70
   elif ts>=350 and ts<400:
-      print("YOUR REWARDS:-",100)
-      
+      reward=80
+  elif ts>=400 and ts<=450:
+    reward=90
+  elif ts>=450:
+    reward=100
+  print()
+  print("Do you want to reedem your reward points to get an additional discount or want to store it for future use(y/n):-")
+  o=input().lower()
+  td=0
+  if o =='y':
+    td=ts-reward
+    print()
+    print(f"TOTAL BILL TO BE PAID:-{td} Rs")
+  else:
+    sql2=f"SELECT rewards FROM {name}.details"
+    mycursor.execute(sql2)
+    mydb.commit()
+    results1 = mycursor.fetchall()
+    for v in results1:
+      for u in v:
+        r1=int(u)+reward
+    sql1=f"UPDATE {name}.details SET rewards=%s"
+    val1=(r1)
+    mycursor.execute(sql1 , val1)
+    mydb.commit()
+
+    
     
   print("")
   print("Type y to confirm order or c to cancel")
@@ -229,6 +261,7 @@ def bill():
   for i in myresult:
           i=list(i)
           writer.writerow(i)
+
 def insert():
         n=int(input("enter number of products to be added:-"))
         for i in range(n):
