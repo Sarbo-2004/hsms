@@ -1,10 +1,10 @@
 import pymysql
 import csv
 mydb = pymysql.connect(
-host="svc-205c95aa-56ef-4613-a035-a35364a4dc70-ddl.aws-virginia-2.svc.singlestore.com",
+host="localhost",
 port= 3306,
-user= "admin",
-password= "tublusK123@",
+user= "root",
+password= "",
 database= "shop"
 )
 mycursor=mydb.cursor() 
@@ -92,7 +92,7 @@ def update(g):
       r=mycursor.fetchall()
       for l in r:
           t=(sum(l))
-      sql1="c"
+      sql1="UPDATE products SET quantity=%s WHERE product_name=%s"
       val1=((t-int(j[1])) , j[0])
       mycursor.execute(sql1 , val1)
       mydb.commit()
@@ -101,25 +101,25 @@ def sign():
     global ph
     global name
     name=input("enter name:")
-    try:
-      mycursor.execute(f"CREATE DATABASE {name}")
-      ph=int(input("enter phone number:-"))
-      add=input("enter address:")
-      r=0
-      table1=f"CREATE TABLE {name}.items (sl INT AUTO_INCREMENT , product_name VARCHAR(20) , quantity INT(10) , total_price INT(10) , PRIMARY KEY(sl))"
-      mycursor.execute(table1)
-      table=f"CREATE TABLE {name}.details (phone_number VARCHAR(10) , address VARCHAR(50) , rewards INT(10))"
-      mycursor.execute(table)
-        
-      p=f"INSERT INTO {name}.details (phone_number , address , rewards) VALUES (%s , %s , %s)"
-      val=(ph , add , r )
-      mycursor.execute(p , val)
-      mydb.commit()
-      print("****ACCOUNT CREATED SUCCESSFULLY****")
-      product_list()
-    except:
-      print("Account has already been created with this name. Please login!")
-      login()
+    # try:
+    mycursor.execute(f"CREATE DATABASE {name}")
+    ph=int(input("enter phone number:-"))
+    add=input("enter address:")
+    r=0
+    table1=f"CREATE TABLE {name}.items (sl INT AUTO_INCREMENT , product_name VARCHAR(20) , quantity INT(10) , total_price INT(10) , PRIMARY KEY(sl))"
+    mycursor.execute(table1)
+    table=f"CREATE TABLE {name}.details (sl INT AUTO_INCREMENT , phone_number VARCHAR(10) , address VARCHAR(50) , rewards INT(10) , PRIMARY KEY(sl))"
+    mycursor.execute(table)
+      
+    p=f"INSERT INTO {name}.details (phone_number , address , rewards) VALUES (%s , %s , %s)"
+    val=(ph , add , r )
+    mycursor.execute(p , val)
+    mydb.commit()
+    print("****ACCOUNT CREATED SUCCESSFULLY****")
+    product_list()
+    # except:
+    #   print("Account has already been created with this name. Please login!")
+    #   login()
       
 def login():
     global name 
@@ -296,6 +296,7 @@ print("\t -------- WELCOME TO E-STORES --------")
 print()
 print("press 1 to add products in the store")
 print("press 2 to shop from the store")
+print("press 3 to create products table of the store")
 z=int(input())
 if z==2:
     n=input("Have you already created your account(yes/no):-").lower()
@@ -306,5 +307,8 @@ if z==2:
         sign()
     input()
     
-else:
-    insert()    
+elif z==3:
+  create_table()  
+  input()
+elif z==1:
+  insert()  
