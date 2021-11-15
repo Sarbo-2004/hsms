@@ -101,25 +101,25 @@ def sign():
     global ph
     global name
     name=input("enter name:")
-    # try:
-    mycursor.execute(f"CREATE DATABASE {name}")
-    ph=int(input("enter phone number:-"))
-    add=input("enter address:")
-    r=0
-    table1=f"CREATE TABLE {name}.items (sl INT AUTO_INCREMENT , product_name VARCHAR(20) , quantity INT(10) , total_price INT(10) , PRIMARY KEY(sl))"
-    mycursor.execute(table1)
-    table=f"CREATE TABLE {name}.details (sl INT AUTO_INCREMENT , phone_number VARCHAR(10) , address VARCHAR(50) , rewards INT(10) , PRIMARY KEY(sl))"
-    mycursor.execute(table)
-      
-    p=f"INSERT INTO {name}.details (phone_number , address , rewards) VALUES (%s , %s , %s)"
-    val=(ph , add , r )
-    mycursor.execute(p , val)
-    mydb.commit()
-    print("****ACCOUNT CREATED SUCCESSFULLY****")
-    product_list()
-    # except:
-    #   print("Account has already been created with this name. Please login!")
-    #   login()
+    try:
+      mycursor.execute(f"CREATE DATABASE {name}")
+      ph=int(input("enter phone number:-"))
+      add=input("enter address:")
+      r=0
+      table1=f"CREATE TABLE {name}.items (sl INT AUTO_INCREMENT , product_name VARCHAR(20) , quantity INT(10) , total_price INT(10) , PRIMARY KEY(sl))"
+      mycursor.execute(table1)
+      table=f"CREATE TABLE {name}.details (sl INT AUTO_INCREMENT , phone_number VARCHAR(10) , address VARCHAR(50) , rewards INT(10) , PRIMARY KEY(sl))"
+      mycursor.execute(table)
+
+      p=f"INSERT INTO {name}.details (phone_number , address , rewards) VALUES (%s , %s , %s)"
+      val=(ph , add , r )
+      mycursor.execute(p , val)
+      mydb.commit()
+      print("****ACCOUNT CREATED SUCCESSFULLY****")
+      product_list()
+    except:
+      print("Account has already been created with this name. Please login!")
+      login()
       
 def login():
     global name 
